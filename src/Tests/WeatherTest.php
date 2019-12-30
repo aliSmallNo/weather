@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 class WeatherTest extends TestCase
 {
-    const APPKEY = 'b4485d32f0332deb8f7545c0de15a61e';
+    const APPKEY = 'bb5e3bd493d1f29f52f9d8ee4bf47049';
 
     public function testGetWeatherWithInvalidType()
     {
@@ -39,6 +39,26 @@ class WeatherTest extends TestCase
         $this->fail('Failed to assert getWeather throw exception with invalid argument.');
     }
 
+    public function testGetLiveWeather()
+    {
+        // 将 getWeather 接口模拟为返回固定内容，以测试参数传递是否正确
+        $w = \Mockery::mock(Weather::class, [self::APPKEY])->makePartial();
+        $w->expects()->getWeather('深圳', 'base', 'json')->andReturn(['success' => true]);
+
+        // 断言正确传参并返回
+        $this->assertSame(['success' => true], $w->getLiveWeather('深圳'));
+    }
+
+    public function testGetForecastsWeather()
+    {
+        // 将 getWeather 接口模拟为返回固定内容，以测试参数传递是否正确
+        $w = \Mockery::mock(Weather::class, [self::APPKEY])->makePartial();
+        $w->expects()->getWeather('深圳', 'all', 'json')->andReturn(['success' => true]);
+
+        // 断言正确传参并返回
+        $this->assertSame(['success' => true], $w->getForecastsWeather('深圳'));
+    }
+    
     public function testGetWeather()
     {
         // json

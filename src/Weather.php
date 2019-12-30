@@ -95,4 +95,14 @@ class Weather
         return 'json' === $format ? \json_decode($response, true) : $response;
     }
 
+    public function getLiveWeather($city, $format = 'json')
+    {
+        return $this->getWeather($city, 'base', $format);
+    }
+
+    public function getForecastsWeather($city, $format = 'json')
+    {
+        return $this->getWeather($city, 'all', $format);
+    }
+
 }
