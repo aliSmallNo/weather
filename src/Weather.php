@@ -55,7 +55,7 @@ class Weather
     }
 
     /**
-     * 获取天气入口
+     * 获取天气
      *
      * @param $city
      * @param string $type
